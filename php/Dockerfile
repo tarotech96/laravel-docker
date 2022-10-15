@@ -1,12 +1,13 @@
-FROM php:8.0-apache
+FROM php:8.0-fpm
 
-RUN apt update && apt install -y zlib1g-dev g++ libicu-dev zip libzip-dev zip libpq-dev \
-    && docker-php-ext-install intl opcache pdo pgsql pdo_pgsql \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+ENV TZ Asia/Tokyo
 
-WORKDIR /var/www/laravel_docker
+RUN apt-get update && \
+	apt-get install -y git unzip libzip-dev libicu-dev libonig-dev && \
+	docker-php-ext-install intl pdo_mysql zip bcmath
+		
+COPY ./php.ini /usr/local/etc/php/php.ini
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app

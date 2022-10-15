@@ -1,0 +1,89 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url("./sidebar.css");
+@image url("./profile.css");
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #212529;
+    background-color: #f5f8fa;
+    box-sizing: border-box;
+}
+
+.navbar-laravel {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #31353d;
+}
+
+.navbar-laravel a {
+    color: #818896;
+}
+
+.navbar-laravel a:hover {
+    color: #b8bfce;
+}
+
+@media (max-width: 767.98px) {
+    .page-width {
+        width: 100%;
+    }
+}
+
+.section {
+    width: 80%;
+    max-width: 100%;
+    margin-left: 1.5rem;
+    height: 100vh;
+}
+
+.header-width,
+.footer-width {
+    width: calc(100% - 250px);
+    float: right;
+}
+
+@media (max-width: 575.98px) {
+    .header-width,
+    .footer-width {
+        width: 100%;
+        float: left;
+    }
+}
+
+.navbar-brand,
+.nav-link,
+.my-form,
+.login-form {
+    font-family: Raleway, sans-serif;
+}
+
+.my-form {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Disable the outline of the button of bootstrap when the focus */
+.btn:focus {
+    outline: 0 !important;
+    -webkit-box-shadow: none;
+    box-shadow: none !important;
+}

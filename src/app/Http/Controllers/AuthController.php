@@ -12,96 +12,91 @@ use Session;
 class AuthController extends Controller
 {
     /**
-   * 
-   * @return ログイン画面
-   */
-  public function login()
-  {
-    return view('auth.login');
-  }
-
-  /**
-   * 
-   * @return  登録画面
-   */
-  public function register()
-  {
-    return view('auth.register');
-  }
-
-  /**
-   * @param $request
-   * @return  ダッシュボード画面又はログイン画面
-   */
-  public function postLogin(Request $request)
-  {
-    $request->validate([
-      'email' => 'required',
-      'password' => 'required'
-    ]);
-
-    $credentials = $request->only('email', 'password');
-    if (Auth::attempt($credentials)) {
-        return redirect()->intended('admin.dashboard')
-                          ->withSuccess('You have successfully logged in');
-    }
-    return redirect('auth.login')->withSuccess('Opps! You have entered invalid credentials');
-  }
-
-  /**
-   * @param $request
-   * @return ダッシュボード画面
-   */
-  public function postRegister(Request $request) 
-  {
-    $request->validate([
-      'name' => 'required',
-      'email' => 'required',
-      'password' => 'required|min:8'
-    ]);
-
-    $data = $request->all();
-    $this->create($data);
-
-    return redirect('admin.dashboard')->withSuccess('Great! You have successfully logged in');
-
-  }
-
-  /**
-   * 
-   * @return ダッシュボード画面又はログイン画面
-   */
-  public function index()
-  {
-    if(Auth::check()) {
-      return view('admin.dashboard');
+     * 
+     * @return ログイン画面
+     */
+    public function login()
+    {
+        return view('auth.login');
     }
 
-    return redirect('auth.login')->withSuccess('Opps! you do not have access');
-  }
+    /**
+     * 
+     * @return  登録画面
+     */
+    public function register()
+    {
+        return view('auth.register');
+    }
 
-  /**
-   * @param $data
-   * @return 
-   */
-  public function create(array $data)
-  {
-    return User::create([
-      'name' => $data['name'],
-      'email' => $data['email'],
-      'password' => Hash::make($data['password'])
-    ]);
-  }
+    /**
+     * @param $request
+     * @return  ダッシュボード画面又はログイン画面
+     */
+    public function postLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
 
-  /**
-   * 
-   * @return ログイン画面
-   */
-  public function logout()
-  {
-    // Session::flush();
-    Auth::logout();
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/admin')
+                ->withSuccess('You have successfully logged in');
+        }
+        return redirect('/login')->withSuccess('Opps! You have entered invalid credentials');
+    }
 
-    return Redirect('login');
-  }
+    /**
+     * @param $request
+     * @return ダッシュボード画面
+     */
+    public function postRegister(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:8'
+        ]);
+        
+        $data = $request->all();
+        $this->create($data);
+
+        return redirect('/admin')->withSuccess('Great! You have successfully logged in');
+    }
+
+    /**
+     * 
+     * @return ダッシュボード画面又はログイン画面
+     */
+    public function index()
+    {
+        return view('admin.dashboard');
+    }
+
+    /**
+     * @param $data
+     * @return 
+     */
+    public function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
+    }
+
+    /**
+     * 
+     * @return ログイン画面
+     */
+    public function logout()
+    {
+        // Session::flush();
+        Auth::logout();
+
+        return Redirect('/login');
+    }
 }
