@@ -2,17 +2,17 @@
 
 ## Project structure
 
-```
-  docker-compose up -d
-```
-
 ## Run project
 
 ```
   cp .env.example .env
 ```
 
-In my_app container run ⬇️
+```
+  docker-compose up -d
+```
+
+Access to my_app container and run ⬇️
 
 ```
   composer update
@@ -24,4 +24,4 @@ In my_app container run ⬇️
   php artisan key:generate
 ```
 
-Access the website: <http://localhost:8083>
+Link: <http://localhost:8083>
